@@ -1,0 +1,167 @@
+﻿@model IEnumerable<ComplaintManagementSystem.Models.Complaint>
+
+@{
+    ViewData["Title"] = "Complaint List";
+}
+
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">
+            <i class="bi bi-list-check"></i> Complaint List
+        </h3>
+
+        <a asp-controller="Complaint"
+           asp-action="Create"
+           class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> New Complaint
+        </a>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">
+                                No complaints found.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Description</td>
+
+                                <!-- Status Badge -->
+                                <td>
+                                    @if (item.Status.ToString() == "Pending")
+                                    {
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    }
+                                    else if (item.Status.ToString() == "InProgress")
+                                    {
+                                        <span class="badge bg-info text-dark">In Progress</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Resolved</span>
+                                    }
+                                </td>
+
+                                <td>@item.CreatedDate.ToString("dd MMM yyyy")</td>
+
+                                <td>@item.User?.Email</td>
+
+                                <!-- Action Buttons -->
+                                <td class="text-center">
+                                    <a asp-controller="Admin"
+                                       asp-action="Edit"
+                                       asp-route-id="@item.ComplaintId"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+
+                                    <a asp-controller="Complaint"
+                                       asp-action="Details"
+                                       asp-route-id="@item.ComplaintId"
+                                       class="btn btn-sm btn-outline-info mx-1">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+
+                                    <a asp-controller="Complaint"
+                                       asp-action="Delete"
+                                       asp-route-id="@item.ComplaintId"
+                                       class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+
+
+@* @model IEnumerable<ComplaintManagementSystem.Models.Complaint>
+
+@{
+    ViewData["Title"] = "Complaint List";
+}
+
+<h1>Complaint List</h1>
+
+<p>
+    <a asp-controller="Complaint" asp-action="Create" class="btn btn-primary">
+        + Create New Complaint
+    </a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>User</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Description</td>
+                <td>@item.Status</td>
+                <td>@item.CreatedDate.ToShortDateString()</td>
+                <td>@item.User?.Email</td>
+                <td>
+                    <a asp-controller="Admin"
+                       asp-action="Edit"
+                       asp-route-id="@item.ComplaintId">
+                        Edit
+                    </a> |
+                    <a asp-controller="Complaint"
+                       asp-action="Details"
+                       asp-route-id="@item.ComplaintId">
+                        Details
+                    </a> |
+                    <a asp-controller="Complaint"
+                       asp-action="Delete"
+                       asp-route-id="@item.ComplaintId">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> *@

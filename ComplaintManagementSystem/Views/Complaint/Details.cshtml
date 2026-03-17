@@ -1,0 +1,26 @@
+﻿@model ComplaintManagementSystem.Models.Complaint
+
+<h2>Complaint Details</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>User</th>
+        <td>@Model.User?.Name</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <th>Status</th>
+        <td>@Model.Status</td>
+    </tr>
+    <tr>
+        <th>Date</th>
+        <td>@Model.CreatedDate.ToString("dd-MM-yyyy")</td>
+    </tr>
+</table>
+
+<a asp-controller="Complaint" asp-action="List" class="btn btn-secondary">
+    Back to List
+</a>

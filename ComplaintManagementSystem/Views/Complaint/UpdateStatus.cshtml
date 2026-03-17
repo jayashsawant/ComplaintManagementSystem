@@ -1,0 +1,18 @@
+﻿@model ComplaintManagementSystem.Models.Complaint
+
+@{
+    ViewData["Title"] = "UpdateStatus";
+}
+
+<form method="post">
+    <input type="hidden" asp-for="ComplaintId" />
+
+    <label>Status</label>
+    <select asp-for="Status" class="form-control">
+        <option>Pending</option>
+        <option>In Progress</option>
+        <option>Closed</option>
+    </select>
+
+    <button class="btn btn-success mt-2">Update</button>
+</form>
